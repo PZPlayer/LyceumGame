@@ -11,10 +11,17 @@ WHITE = (255, 255, 255)
 LIGHT_BLUE = (135, 206, 250)
 DARK_BLUE = (70, 130, 180)
 
+window_width = 400
+window_height = 200
+
+white = (255, 255, 255)
+black = (0, 0, 0)
+
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Меню")
 
 font = pygame.font.Font(None, 36)
+
 
 class Button:
     def __init__(self, x, y, width, height, color, hover_color, text, action):
@@ -41,8 +48,71 @@ class Button:
             if self.rect.collidepoint(event.pos):
                 self.action()
 
+
+def clickerStart():
+    import Clciker
+
+
+def shootStart():
+    import SecGame
+
+
+def pinpong():
+    import ThirdGame
+
+
 def play():
-    print("Запускаем игру!")
+    pygame.init()
+    width, height = 400, 400
+    screen2 = pygame.display.set_mode((width, height))
+    pygame.display.set_caption("Button Panel")
+    clock = pygame.time.Clock()
+
+    button_color1 = (255, 0, 0)
+    button_color2 = (0, 255, 0)
+    button_color3 = (0, 0, 255)
+    button_color4 = (255, 255, 0)
+    exit_color = (255, 255, 255)
+
+    button_width = 100
+    button_height = 50
+    button_padding = 20
+
+    button_x = (width - (button_width * 2) - button_padding) // 2
+    button_y = (height - (button_height * 2) - button_padding) // 2
+
+    is_running = True
+
+    while is_running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                is_running = False
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if button1.collidepoint(event.pos):
+                    clickerStart()
+                elif button2.collidepoint(event.pos):
+                    shootStart()
+                elif button3.collidepoint(event.pos):
+                    pinpong()
+                elif button4.collidepoint(event.pos):
+                    print("Button 4 clicked")
+                elif exit_button.collidepoint(event.pos):
+                    is_running = False
+
+        screen2.fill((0, 0, 0))
+
+        button1 = pygame.draw.rect(screen2, button_color1, (button_x, button_y, button_width, button_height))
+        button2 = pygame.draw.rect(screen2, button_color2,
+                                   (button_x + button_width + button_padding, button_y, button_width, button_height))
+        button3 = pygame.draw.rect(screen2, button_color3,
+                                   (button_x, button_y + button_height + button_padding, button_width, button_height))
+        button4 = pygame.draw.rect(screen2, button_color4, (
+        button_x + button_width + button_padding, button_y + button_height + button_padding, button_width,
+        button_height))
+        exit_button = pygame.draw.rect(screen2, exit_color, (0, 0, button_width, button_height))
+        pygame.display.flip()
+        clock.tick(60)
+
 
 rainbow_colors = [
     (255, 0, 0),  # Красный
@@ -76,9 +146,6 @@ while True:
     screen.fill((0, 0, 0))
 
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
         start_button.handle_event(event)
         exit_button.handle_event(event)
 
@@ -92,4 +159,3 @@ while True:
     exit_button.draw()
     screen.blit(text_surface, text_rect)
     pygame.display.flip()
-
