@@ -1,6 +1,7 @@
 import pygame
 import sys
 import time
+import sqlite3
 
 pygame.init()
 
@@ -21,6 +22,46 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Меню")
 
 font = pygame.font.Font(None, 36)
+
+
+def save_data(name, quantity):
+    conn = sqlite3.connect('films_db (1).sqlite')
+    cursor = conn.cursor()
+
+    cursor.execute('CREATE TABLE IF NOT EXISTS items (name TEXT, quantity INTEGER)')
+
+    cursor.execute('INSERT INTO items VALUES (?, ?)', (name, quantity))
+
+    conn.commit()
+    conn.close()
+
+
+def update_quantity(name, new_quantity):
+    conn = sqlite3.connect('films_db (1).sqlite')
+    cursor = conn.cursor()
+
+    cursor.execute('UPDATE items SET quantity=? WHERE name=?', (new_quantity, name))
+
+    conn.commit()
+    conn.close()
+
+
+def get_cell_value(name):
+    conn = sqlite3.connect('films_db (1).sqlite')
+    cursor = conn.cursor()
+
+    cursor.execute(f"SELECT quantity FROM items WHERE name = '{name}'")
+    result = cursor.fetchone()
+
+    cursor.close()
+    conn.close()
+
+    if result:
+        return result[0]
+    else:
+        return None
+
+
 
 
 class Button:
@@ -107,8 +148,8 @@ def play():
         button3 = pygame.draw.rect(screen2, button_color3,
                                    (button_x, button_y + button_height + button_padding, button_width, button_height))
         button4 = pygame.draw.rect(screen2, button_color4, (
-        button_x + button_width + button_padding, button_y + button_height + button_padding, button_width,
-        button_height))
+            button_x + button_width + button_padding, button_y + button_height + button_padding, button_width,
+            button_height))
         exit_button = pygame.draw.rect(screen2, exit_color, (0, 0, button_width, button_height))
         pygame.display.flip()
         clock.tick(60)
@@ -125,10 +166,14 @@ rainbow_colors = [
 ]
 
 font = pygame.font.Font(None, 70)
+fontsec = pygame.font.Font(None, 30)
 
 text_surface = font.render("Double Game", True, rainbow_colors[0])
+textsurf = fontsec.render(f"Money:{get_cell_value('Money')}", True, pygame.Color("green"))
 
 text_rect = text_surface.get_rect()
+textrect = textsurf.get_rect()
+textrect = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 18)
 text_rect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 5)
 
 
@@ -158,4 +203,5 @@ while True:
     start_button.draw()
     exit_button.draw()
     screen.blit(text_surface, text_rect)
+    screen.blit(textsurf, textrect)
     pygame.display.flip()

@@ -35,7 +35,12 @@
     &quot;last_opened_file_path&quot;: &quot;C:/Users/lzhil/Documents/GitHub/LyceumGame&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python.ThirdGame">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\lzhil\Documents\GitHub\LyceumGame\GameLyceumProject" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.main">
     <configuration name="Clciker" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="LyceumGame" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -122,8 +127,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.ThirdGame" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.ThirdGame" />
         <item itemvalue="Python.SecGame" />
         <item itemvalue="Python.Clciker" />
       </list>
@@ -156,7 +161,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/GameLyceumProject/main.py</url>
-          <line>4</line>
+          <line>5</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
